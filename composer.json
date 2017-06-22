@@ -32,5 +32,8 @@
     "psr-4": {
       "Tests\\Warhuhn\\Doctrine\\DBAL\\Types\\": "tests"
     }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
   }
 }
