@@ -1,0 +1,12 @@
+{
+    "name": "warhuhn/chronos-doctrine",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jesko Karwasz",
+            "email": "warhuhn@gmail.com"
+        }
+    ],
+    "require": {}
+}
