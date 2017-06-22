@@ -1,12 +1,36 @@
 {
-    "name": "warhuhn/chronos-doctrine",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Jesko Karwasz",
-            "email": "warhuhn@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "warhuhn/chronos-doctrine",
+  "description": "Doctrine DBAL Types to use Chronos' Immutable DateTime Objects",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jesko Karwasz",
+      "email": "warhuhn@gmail.com",
+      "homepage": "https://www.github.com/warhuhn"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/warhuhn/chronos-php/issues",
+    "source": "https://github.com/warhuhn/chronos-php"
+  },
+  "require": {
+    "php": "^5.5 || ^7.0",
+    "cakephp/chronos": "^1.1",
+    "doctrine/orm": "^2.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.2",
+    "ext-pdo_sqlite": "^7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Warhuhn\\Doctrine\\DBAL\\Types\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Warhuhn\\Doctrine\\DBAL\\Types\\": "tests"
+    }
+  }
 }
