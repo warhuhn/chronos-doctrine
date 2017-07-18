@@ -31,6 +31,10 @@ class ChronosDateType extends DateType
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
+        if ($value === null) {
+            return null;
+        }
+
         $dateTime = parent::convertToPHPValue($value, $platform);
 
         return Date::instance($dateTime);

@@ -70,6 +70,13 @@ class ChronosDateTimeTzTypeTest extends TestCase
         static::assertEquals('2016-11-05 07:54:02+0400', $value);
     }
 
+    public function testNull()
+    {
+        $obj = $this->type->convertToPHPValue(null, $this->platform);
+
+        static::assertNull($obj);
+    }
+
     private function getPlatformMock()
     {
         return $this->getMockBuilder(AbstractPlatform::class)
