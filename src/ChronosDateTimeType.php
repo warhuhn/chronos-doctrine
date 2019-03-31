@@ -38,4 +38,12 @@ class ChronosDateTimeType extends DateTimeType
 
         return Chronos::instance($dateTime);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    {
+        return true;
+    }
 }
