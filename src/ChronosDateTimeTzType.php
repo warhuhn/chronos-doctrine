@@ -20,7 +20,7 @@ class ChronosDateTimeTzType extends DateTimeTzType
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return self::CHRONOS_DATETIMETZ;
     }
@@ -42,7 +42,7 @@ class ChronosDateTimeTzType extends DateTimeTzType
     /**
      * {@inheritdoc}
      */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
     }

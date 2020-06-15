@@ -10,13 +10,18 @@ namespace Tests\Warhuhn\Doctrine\DBAL\Types;
 
 use Cake\Chronos\Chronos;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Warhuhn\Doctrine\DBAL\Types\ChronosDateTimeTzType;
 
 class ChronosDateTimeTzTypeTest extends TestCase
 {
 
+	/**
+	 * @var AbstractPlatform
+	 */
     private $platform;
 
     /**
@@ -24,28 +29,26 @@ class ChronosDateTimeTzTypeTest extends TestCase
      */
     private $type;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         Type::addType('chronos_datetimetz', ChronosDateTimeTzType::class);
     }
 
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->platform = $this->getPlatformMock();
         $this->type = Type::getType('chronos_datetimetz');
     }
 
 
-    /**
-     * @expectedException \Doctrine\DBAL\Types\ConversionException
-     */
-    public function testInvalidDateConversion()
+	public function testInvalidDateConversion(): void
     {
-        $this->type->convertToPHPValue('aaaa', $this->platform);
+		$this->expectException(ConversionException::class);
+		$this->type->convertToPHPValue('aaaa', $this->platform);
     }
 
-    public function testConvertToPhpValue()
+    public function testConvertToPhpValue(): void
     {
         $this->platform
             ->method('getDateTimeTzFormatString')
@@ -59,7 +62,7 @@ class ChronosDateTimeTzTypeTest extends TestCase
         static::assertEquals(14400, $obj->getOffset());
     }
 
-    public function testConvertToDatabaseValue()
+    public function testConvertToDatabaseValue(): void
     {
         $this->platform
             ->method('getDateTimeTzFormatString')
@@ -70,17 +73,17 @@ class ChronosDateTimeTzTypeTest extends TestCase
         static::assertEquals('2016-11-05 07:54:02+0400', $value);
     }
 
-    public function testNull()
+    public function testNull(): void
     {
         $obj = $this->type->convertToPHPValue(null, $this->platform);
 
         static::assertNull($obj);
     }
 
-    private function getPlatformMock()
+    private function getPlatformMock(): MockObject
     {
         return $this->getMockBuilder(AbstractPlatform::class)
-            ->setMethods(['getDateTimeTzFormatString'])
+            ->onlyMethods(['getDateTimeTzFormatString'])
             ->getMockForAbstractClass();
     }
 
