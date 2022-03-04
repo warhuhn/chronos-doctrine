@@ -28,7 +28,7 @@ class ChronosDateTimeTzType extends DateTimeTzType
     /**
      * {@inheritDoc}
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Chronos
     {
         if ($value === null) {
             return null;

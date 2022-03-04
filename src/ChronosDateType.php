@@ -9,7 +9,6 @@
 namespace Warhuhn\Doctrine\DBAL\Types;
 
 
-use Cake\Chronos\Chronos;
 use Cake\Chronos\Date;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\DateType;
@@ -29,7 +28,7 @@ class ChronosDateType extends DateType
     /**
      * {@inheritDoc}
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Date
     {
         if ($value === null) {
             return null;
