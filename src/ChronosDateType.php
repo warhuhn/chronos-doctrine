@@ -36,7 +36,7 @@ class ChronosDateType extends DateType
 
         $dateTime = parent::convertToPHPValue($value, $platform);
 
-        return Date::instance($dateTime);
+        return new Date($dateTime);
     }
 
     /**
