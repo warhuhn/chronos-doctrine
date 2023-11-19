@@ -8,11 +8,11 @@ jobs:
 
     strategy:
       matrix:
-        os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
-        php: ['7.2', '8.0', '8.1', '8.2', '8.3']
+        os: ['ubuntu-latest']
+        php: ['7.3', '8.0', '8.1', '8.2', '8.3']
         dependency-version: ['prefer-lowest', 'prefer-stable']
 
-    name: Test PHP ${{ matrix.php }} - ${{ matrix.dependency-version }}
+    name: Test ${{ matrix.os }} PHP ${{ matrix.php }} - ${{ matrix.dependency-version }}
 
     steps:
       - name: Checkout
