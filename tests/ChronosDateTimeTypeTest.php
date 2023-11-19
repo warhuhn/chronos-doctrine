@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: suigintou
- * Date: 22.06.17
- * Time: 19:42
- */
 
 namespace Tests\Warhuhn\Doctrine\DBAL\Types;
 
