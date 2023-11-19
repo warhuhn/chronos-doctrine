@@ -46,7 +46,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Example
 {
     /**
-     * @var \Cake\Chronos\Date 
+     * @var \Cake\Chronos\ChronosDate 
      * @ORM\Column(type="chronos_date")
      */
     private $date;
