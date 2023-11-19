@@ -44,6 +44,10 @@ class ChronosDateTimeTzTypeTest extends TestCase
 
 	public function testInvalidDateConversion(): void
     {
+        $this->platform
+            ->method('getDateTimeTzFormatString')
+            ->willReturn('Y-m-d H:i:sO');
+
 		$this->expectException(ConversionException::class);
 		$this->type->convertToPHPValue('aaaa', $this->platform);
     }
