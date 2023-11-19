@@ -16,7 +16,7 @@
   },
   "require": {
     "php": ">=7.3",
-    "cakephp/chronos": "^2.4",
+    "cakephp/chronos": "^2.4|^3.0.2",
     "doctrine/dbal": "^2.10|^3.0"
   },
   "require-dev": {
