@@ -1,6 +1,6 @@
 # chronos-doctrine
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/warhuhn/chronos-doctrine/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/warhuhn/chronos-doctrine/blob/master/LICENSE)
 [![Run unit tests](https://github.com/warhuhn/chronos-doctrine/actions/workflows/run-unit-tests.yml/badge.svg)](https://github.com/warhuhn/chronos-doctrine/actions/workflows/run-unit-tests.yml)
 
 The warhuhn/chronos-doctrine library adds Doctrine DBAL Types that convert Date/DateTime-based database values to
