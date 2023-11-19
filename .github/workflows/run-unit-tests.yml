@@ -1,6 +1,14 @@
 name: Run unit tests
 
-on: [pull_request, push]
+on:
+  pull_request:
+    types: ['opened', 'synchronize', 'reopened']
+  push:
+    branches: ['master']
+  schedule:
+    # run once every month
+    - cron: '0 12 15 * *'
+
 
 jobs:
   test:
