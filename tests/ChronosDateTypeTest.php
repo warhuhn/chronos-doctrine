@@ -75,7 +75,7 @@ class ChronosDateTypeTest extends TestCase
         static::assertNull($obj);
     }
 
-    public function providePlatform(): array
+    public static function providePlatform(): array
     {
         return [
             'db2'         => [new DB2Platform, '2016-11-05', '2016-11-05'],
