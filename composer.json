@@ -15,7 +15,7 @@
     "source": "https://github.com/warhuhn/chronos-php"
   },
   "require": {
-    "php": ">=8.1",
+    "php": ">=8.2",
     "cakephp/chronos": "^3.3",
     "doctrine/dbal": "^4.3"
   },
