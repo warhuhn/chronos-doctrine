@@ -60,16 +60,6 @@ class ChronosDateTimeTzType extends Type
 
         $dateTime = $this->type->convertToPHPValue($value, $platform);
 
-        file_put_contents(__DIR__ . '/output.txt', var_export([
-                'platform' => basename(get_class($platform)),
-                'platform_format' => $platform->getDateTimeTzFormatString(),
-                'value' => $value,
-                'date' => $dateTime->format(DATE_ATOM),
-                'offset' => $dateTime->getOffset(),
-                'tz' => $dateTime->getTimezone(),
-                'format' => $platform->getDateTimeTzFormatString(),
-            ], true) . PHP_EOL . PHP_EOL, FILE_APPEND);
-
         return Chronos::instance($dateTime);
     }
 }
