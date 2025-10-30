@@ -4,12 +4,22 @@ namespace Warhuhn\Doctrine\DBAL\Types;
 
 use Cake\Chronos\ChronosDate;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\DateType;
+use Doctrine\DBAL\Types\DateImmutableType;
+use Doctrine\DBAL\Types\Exception\InvalidFormat;
+use Doctrine\DBAL\Types\Exception\InvalidType;
+use Doctrine\DBAL\Types\Type;
+use Warhuhn\Doctrine\DBAL\Types\Traits\ExtendsDoctrineType;
 
-class ChronosDateType extends DateType
+class ChronosDateType extends Type
 {
+    use ExtendsDoctrineType;
+
     const CHRONOS_DATE = 'chronos_date';
+
+    public function __construct()
+    {
+        $this->type = new DateImmutableType();
+    }
 
     /**
      * {@inheritDoc}
@@ -32,7 +42,11 @@ class ChronosDateType extends DateType
             return $value->format($platform->getDateFormatString());
         }
 
-        throw ConversionException::conversionFailedFormat($value, static::class, implode(', ', ['null', ChronosDate::class]));
+        throw InvalidType::new(
+            $value,
+            static::class,
+            ['null', ChronosDate::class],
+        );
     }
 
     /**
@@ -44,16 +58,16 @@ class ChronosDateType extends DateType
             return null;
         }
 
-        $dateTime = parent::convertToPHPValue($value, $platform);
+        $dateTime = $this->type->convertToPHPValue($value, $platform);
 
-        return new ChronosDate($dateTime);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
-    {
-        return true;
+        try {
+            return new ChronosDate($dateTime);
+        } catch (\Exception $e) {
+            throw InvalidFormat::new(
+                $value,
+                static::class,
+                $platform->getDateFormatString(),
+            );
+        }
     }
 }

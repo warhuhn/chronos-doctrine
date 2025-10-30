@@ -36,34 +36,29 @@ doctrine:
            chronos_datetimetz: Warhuhn\Doctrine\DBAL\Types\ChronosDateTimeTzType
 ```
 
-## Usage in Doctrine ORM
+## Usage in Doctrine ORM 3.0
 
 ```php
 <?php
 
+namespace Warhuhn\Doctrine\DBAL\Types;
+
+use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class Example
 {
-    /**
-     * @var \Cake\Chronos\ChronosDate 
-     * @ORM\Column(type="chronos_date")
-     */
-    private $date;
-    
-    /**
-     * @var \Cake\Chronos\Chronos
-     * @ORM\Column(type="chronos_datetime")
-     */
-    private $dateTime;
-    
-    /**
-     * @var \Cake\Chronos\Chronos
-     * @ORM\Column(type="chronos_datetimetz")
-     */
-    private $dateTimeTz;
+
+    #[ORM\Column(type: 'chronos_date')]
+    private ChronosDate $date;
+
+    #[ORM\Column(type: 'chronos_datetime')]
+    private Chronos $dateTime;
+
+    #[ORM\Column(type: 'chronos_datetimetz')]
+    private Chronos $dateTimeTz;
+
 }
 ```
