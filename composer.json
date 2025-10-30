@@ -15,12 +15,12 @@
     "source": "https://github.com/warhuhn/chronos-php"
   },
   "require": {
-    "php": ">=7.3",
-    "cakephp/chronos": "^2.4|^3.0.2",
-    "doctrine/dbal": "^2.10|^3.0"
+    "php": ">=8.2",
+    "cakephp/chronos": "^3.3",
+    "doctrine/dbal": "^4.3"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.3"
+    "phpunit/phpunit": "^10.5"
   },
   "autoload": {
     "psr-4": {

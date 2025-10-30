@@ -1,13 +1,14 @@
 name: Run unit tests
 
 on:
+  workflow_dispatch:
   pull_request:
     types: ['opened', 'synchronize', 'reopened']
   push:
     branches: ['master']
-  schedule:
+  #schedule:
     # run once every month
-    - cron: '0 12 15 * *'
+    #- cron: '0 12 15 * *'
 
 
 jobs:
@@ -17,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: ['ubuntu-latest']
-        php: ['7.3', '8.0', '8.1', '8.2', '8.3']
+        php: ['8.2', '8.3', '8.4']
         dependency-version: ['prefer-lowest', 'prefer-stable']
 
     name: Test ${{ matrix.os }} PHP ${{ matrix.php }} - ${{ matrix.dependency-version }}
