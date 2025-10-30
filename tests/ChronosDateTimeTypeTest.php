@@ -4,20 +4,22 @@ namespace Tests\Warhuhn\Doctrine\DBAL\Types;
 
 use Cake\Chronos\Chronos;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\DB2Platform;
+use Doctrine\DBAL\Platforms\MariaDB1010Platform;
+use Doctrine\DBAL\Platforms\MariaDBPlatform;
+use Doctrine\DBAL\Platforms\MySQLPlatform;
+use Doctrine\DBAL\Platforms\OraclePlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
+use Doctrine\DBAL\Platforms\SQLServerPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Tests\Warhuhn\Doctrine\DBAL\Types\Traits\HasPlatformDataProvider;
 use Warhuhn\Doctrine\DBAL\Types\ChronosDateTimeType;
 
 class ChronosDateTimeTypeTest extends TestCase
 {
-
-	/**
-	 * @var AbstractPlatform
-	 */
-    private $platform;
-
     /**
      * @var Type
      */
@@ -31,42 +33,61 @@ class ChronosDateTimeTypeTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->platform = $this->getPlatformMock();
         $this->type = Type::getType('chronos_datetime');
     }
 
-
-	public function testInvalidDateConversion(): void
+    /**
+     * @dataProvider providePlatform
+     */
+	public function testInvalidDateConversion(AbstractPlatform $platform): void
 	{
 		$this->expectException(ConversionException::class);
-		$this->type->convertToPHPValue('aaaa', $this->platform);
+
+		$this->type->convertToPHPValue('aaaa', $platform);
     }
 
-    public function testConvertToPhpValue(): void
+    /**
+     * @dataProvider providePlatform
+     */
+    public function testConvertToPhpValue(AbstractPlatform $platform, $time, $dbTime): void
     {
-        $obj = $this->type->convertToPHPValue('2016-11-05 07:54:02', $this->platform);
+        $obj = $this->type->convertToPHPValue($dbTime, $platform);
 
         static::assertInstanceOf(Chronos::class, $obj);
-        static::assertEquals('2016-11-05 07:54:02', $obj->format('Y-m-d H:i:s'));
+        static::assertEquals($time, $obj->format('Y-m-d H:i:s'));
     }
 
-    public function testConvertToDatabaseValue(): void
+    /**
+     * @dataProvider providePlatform
+     */
+    public function testConvertToDatabaseValue(AbstractPlatform $platform, $time, $dbTime): void
     {
-        $value = $this->type->convertToDatabaseValue(new Chronos('2016-11-05 07:54:02'), $this->platform);
+        $value = $this->type->convertToDatabaseValue(new Chronos($time), $platform);
 
-        static::assertEquals('2016-11-05 07:54:02', $value);
+        static::assertEquals($dbTime, $value);
     }
 
-    public function testNull(): void
+    /**
+     * @dataProvider providePlatform
+     */
+    public function testNull(AbstractPlatform $platform): void
     {
-        $obj = $this->type->convertToPHPValue(null, $this->platform);
+        $obj = $this->type->convertToPHPValue(null, $platform);
 
         static::assertNull($obj);
     }
-    private function getPlatformMock(): MockObject
-	{
-        return $this->getMockBuilder(AbstractPlatform::class)
-            ->getMockForAbstractClass();
-    }
 
+    public function providePlatform(): array
+    {
+        return [
+            'db2'         => [new DB2Platform, '2016-11-05 07:54:02', '2016-11-05 07:54:02'],
+            'mariadb1010' => [new MariaDB1010Platform, '2016-11-05 07:54:02', '2016-11-05 07:54:02'],
+            'mariadb'     => [new MariaDBPlatform, '2016-11-05 07:54:02', '2016-11-05 07:54:02'],
+            'mysql'       => [new MySQLPlatform, '2016-11-05 07:54:02', '2016-11-05 07:54:02'],
+            'oracle'      => [new OraclePlatform, '2016-11-05 07:54:02', '2016-11-05 07:54:02'],
+            'pgsql'       => [new PostgreSQLPlatform, '2016-11-05 07:54:02', '2016-11-05 07:54:02'],
+            'sqlite'      => [new SQLitePlatform, '2016-11-05 07:54:02', '2016-11-05 07:54:02'],
+            'sqlsrv'      => [new SQLServerPlatform, '2016-11-05 07:54:02', '2016-11-05 07:54:02.000000'],
+        ];
+    }
 }
