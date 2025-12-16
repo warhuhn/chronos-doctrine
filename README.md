@@ -6,6 +6,8 @@
 The warhuhn/chronos-doctrine library adds Doctrine DBAL Types that convert Date/DateTime-based database values to
 Immutable Chronos DateTime-Implementations.
 
+[View on Packagist](https://packagist.org/packages/warhuhn/chronos-doctrine)
+
 ## Installation
 
 ```bash
